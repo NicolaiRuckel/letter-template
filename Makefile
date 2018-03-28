@@ -1,9 +1,10 @@
-MAIN = pre
+MAIN = template/pre
+OUTNAME = letter
 
-all: build clean
+all: build
 
 build:
-	rubber --module xelatex --jobname letter $(MAIN).tex
+	rubber --module xelatex --jobname $(OUTNAME) $(MAIN).tex
 
 clean:
-	rm -f *.log *.toc *.aux *.nav *.out *.blg *.snm *.vrb
+	rm -f *.log *.toc *.aux *.nav *.out *.blg *.snm *.vrb $(OUTNAME).pdf
