@@ -8,6 +8,7 @@ recipient-city: "Recipient City"
 date: "2017-02-20"
 closing: "bar"
 signature: true
+papersize: "a4"
 language: "english"
 ...
 

@@ -53,17 +53,22 @@
 %
 % You can set those fields, otherwise the default value will be used.
 %
+% * `papersize`: Defaults to `a4`
 % * `date`: If you don’t set a custom date, the current date will be used.
 % * `closing`: Use a custom closing.
 % * `signature`: If set to true, there will be signature field under the closing.
 % * `language`: Language of the letter. This is used for the date format and
 %   typesetting. Defaults to `ngerman`.
 
-\documentclass[DIN, pagenumber=false, parskip=half, fromalign=right]{scrlttr2}
-
-\usepackage{textcomp}
-\usepackage{soul}
-\usepackage{fontspec}
+\documentclass[
+$if(papersize)$
+$papersize$paper
+$else$
+a4paper
+$endif$,
+pagenumber=false,
+parskip=half,
+fromalign=right]{scrlttr2}
 
 \usepackage[
 $if(language)$
@@ -73,22 +78,10 @@ ngerman
 $endif$
 ]{babel}
 
-\renewcommand*{\raggedsignature}{\raggedright} % do not indent the signature
-
 % Use Fira fonts
+\usepackage{fontspec}
 \usepackage[sfdefault]{Fira Sans}
 \usepackage{FiraMono}
-
-\newcommand{\signature}[2]{% place and date
-  \parbox{\textwidth}{\
-    \vspace{2cm}
-
-    \parbox{7cm}{\
-      \rule{6cm}{1pt}\\
-       #1,\, #2
-    }
-  }
-}
 
 % Sender’s address
 \setkomavar{fromname}{$sender-name$}
@@ -104,16 +97,33 @@ $endif$
   $endif$
 }
 
-\begin{document}
+\makeatletter
 
+% Don’t indent opening, closing and signature. It looks ridiculous.
+\renewcommand*{\raggedsignature}{\raggedright}
+
+\makeatother
+
+\newcommand{\signature}[2]{% place and date
+  \parbox{\textwidth}{\
+    \vspace{2cm}
+
+    \parbox{7cm}{\
+      \rule{6cm}{1pt}\\
+       #1,\, #2
+    }
+  }
+}
+
+\begin{document}
 % Recepient’s address
-\begin{letter}{\noindent
+\begin{letter}{%
     $recipient-name$\\
     $recipient-street$\\
     $recipient-city$
   }
 
-  \opening{\
+  \opening{%
   $if(opening)$
   $opening$
   $else$
@@ -123,7 +133,7 @@ $endif$
 
 $body$
 
-\closing{\
+\closing{%
   $if(closing)$
   $closing$
   $else$
