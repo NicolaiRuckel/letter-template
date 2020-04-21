@@ -5,11 +5,7 @@ sender-city: "54321 City"
 recipient-name: "Recipient Name"
 recipient-street: "Recipient Street"
 recipient-city: "Recipient City"
-date: "2017-02-20"
-closing: "bar"
-signature: true
-papersize: "a4"
-language: "english"
+lang: de
 ...
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
