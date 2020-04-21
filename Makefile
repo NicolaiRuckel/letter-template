@@ -1,10 +1,17 @@
-MAIN = template/pre
-OUTNAME = letter
+.PHONY: phony
 
-all: build
+PANDOCFLAGS =\
+	--pdf-engine=xelatex \
+	--from=markdown \
+	--template letter.tex
 
-build:
-	rubber --module xelatex --jobname $(OUTNAME) $(MAIN).tex
+all: phony out/letter.pdf
 
-clean:
-	rm -f *.log *.toc *.aux *.nav *.out *.blg *.snm *.vrb $(OUTNAME).pdf
+out/%.pdf: %.md  Makefile letter.tex | out
+	pandoc $< -o $@ $(PANDOCFLAGS)
+
+out:
+	mkdir ./out
+
+clean: phony
+	rm -rf ./out

@@ -1,23 +1,100 @@
+% A simple letter template for Pandoc.
+% Copyright (C) 2020 Nicolai Ruckel
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+\documentclass[DIN, pagenumber=false, parskip=half, fromalign=right]{scrlttr2}
+
+\usepackage{textcomp}
+\usepackage{soul}
+\usepackage{fontspec}
+
+\usepackage[
+$if(language)$
+$language$
+$else$
+ngerman
+$endif$
+]{babel}
+
+\renewcommand*{\raggedsignature}{\raggedright} % do not indent the signature
+
+\setmainfont{Source Sans Pro}[Ligatures=TeX]
+\setsansfont{Source Sans Pro}[Ligatures=TeX]
+\setmonofont{Source Code Pro}[
+  BoldFont={* Medium},
+  BoldItalicFont={* Medium Italic},
+]
+
+\newcommand{\signature}[2]{% place and date
+  \parbox{\textwidth}{\
+    \vspace{2cm}
+
+    \parbox{7cm}{\
+      \rule{6cm}{1pt}\\
+       #1,\, #2
+    }
+  }
+}
+
+% Sender’s address
+\setkomavar{fromname}{$sender-name$}
+\setkomavar{fromaddress}{\
+  $sender-street$\\
+  $sender-city$
+}
+\setkomavar{date}{\
+  $if(date)$
+  $date$
+  $else$
+  \today
+  $endif$
+}
+
 \begin{document}
-% receiver:
-\begin{letter}{
-    Recipient Name\\
-    Recipient Street\\
-    12345 Recipient City
+
+% Recepient’s address
+\begin{letter}{\noindent
+    $recipient-name$\\
+    $recipient-street$\\
+    $recipient-city$
   }
 
-\opening{Sehr geehrte Damen und Herren}
+  \opening{\
+  $if(opening)$
+  $opening$
+  $else$
+  Sehr geehrte Damen und Herren,
+  $endif$
+}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-tem invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-s et accusam et justo duo dolores et ea rebum. 
+$body$
 
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-eirmod tem invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum. 
+\closing{\
+  $if(closing)$
+  $closing$
+  $else$
+  Mit freundlichen Grüßen
+  $endif$
+}
 
-\closing{Mit freundlichen Grüßen}
+% Optional signature field
+$if(signature)$
+\signature{place}{\
+  \usekomavar{date}
+}
+$endif$
 
 \end{letter}
 \end{document}
