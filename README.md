@@ -8,7 +8,11 @@ A letter template for Pandoc.
 
 ## Usage
 
-See Makefile.
+This template is used to generate a letter out of a Pandoc Markdown file.  You
+have to use xelatex as the pdf engine with `--pdf-engine=xelatex`. You can
+either edit the `letter.md` file and use the provided Makefile or put the
+`letter.latex` file in your Pandoc template directory (see the Pandoc manual
+entry for `--data-dir` for more information).
 
 ### YAML Metdata Block
 

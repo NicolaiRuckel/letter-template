@@ -1,13 +1,15 @@
 .PHONY: phony
 
+TEMPLATE=letter.latex
+
 PANDOCFLAGS =\
 	--pdf-engine=xelatex \
 	--from=markdown \
-	--template letter.tex
+	--template $(TEMPLATE)
 
 all: phony out/letter.pdf
 
-out/%.pdf: %.md  Makefile letter.tex | out
+out/%.pdf: %.md Makefile $(TEMPLATE) | out
 	pandoc $< -o $@ $(PANDOCFLAGS)
 
 out:
