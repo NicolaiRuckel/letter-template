@@ -29,6 +29,7 @@ recipient-city: "Recipient City"
 date: "2017-02-20"
 closing: "bar"
 signature: true
+lang: de
 ...
 ```
 
@@ -48,8 +49,9 @@ You have to specify these fields, otherwise it won’t compile.
 
 You can set those fields, otherwise the default value will be used.
 
+* `papersize`: Default is `a4`.
 * `date`: If you don’t set a custom date, the current date will be used.
 * `closing`: Use a custom closing.
 * `signature`: If set to true, there will be signature field under the closing.
 * `language`: Language of the letter. This is used for the date format and
-  typesetting. Defaults to `ngerman`.
+  typesetting. Defaults to `en`.

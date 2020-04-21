@@ -57,10 +57,13 @@
 % * `date`: If you don’t set a custom date, the current date will be used.
 % * `closing`: Use a custom closing.
 % * `signature`: If set to true, there will be signature field under the closing.
-% * `language`: Language of the letter. This is used for the date format and
-%   typesetting. Defaults to `ngerman`.
+% * `lang`: Language of the letter. This is used for the date format and
+%   typesetting. Defaults to `en`.
 
 \documentclass[
+$if(lang)$
+  $babel-lang$,
+$endif$
 $if(papersize)$
 $papersize$paper
 $else$
@@ -71,10 +74,10 @@ parskip=half,
 fromalign=right]{scrlttr2}
 
 \usepackage[
-$if(language)$
-$language$
+$if(lang)$
+$babel-lang$
 $else$
-ngerman
+english
 $endif$
 ]{babel}
 
